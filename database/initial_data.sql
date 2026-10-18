@@ -8,7 +8,7 @@ VALUES
     'Finished'
 ),
 (
-    'I Became a God in a Horror Game',
-    'Two-Nine',
+    'Got Dropped into a Ghost Story, Still Gotta Work',
+    'Baek Deok-su',
     'Reading'
 );
