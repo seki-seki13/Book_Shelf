@@ -4,6 +4,6 @@
     "mysql2": "npm:mysql2@^3.24.5"
   },
   "tasks": {
-    "start" : "deno run --env-file --allow-env --allow-net server/main.js"
+    "start" : "deno run --env-file --allow-env --allow-net --allow-read=public --allow-write=public/uploads server/main.js"
   }
 }

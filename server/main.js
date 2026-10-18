@@ -1,107 +1,53 @@
-import connection from "./connection.js";
 import {serveDir} from "@std/http/file-server"
+import { login, register, me, logout } from "./routes/auth.js";
+import { handleBookRoutes } from "./routes/books.js";
+
+
 
 Deno.serve(async (request) => { 
     const url = new URL(request.url); 
 
-    if (url.pathname === '/api/books') { 
-        if (request.method === "GET") {
-        const [rows] = await connection.query(
-            "CALL GetAllBooks()"
+    if (url.pathname === "/") {
+        return Response.redirect(
+            new URL("/pages/index.html", request.url),
+            302
         );
+    }
 
-        const books = rows[0];
+    if (url.pathname === "/api/auth/register" &&
+        request.method === "POST"
+    ) {
+        return await register(request);
+    }
 
-        return new Response(
-            JSON.stringify(books),
-            {
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }
-        ); }
+    if (url.pathname === "/api/auth/login" &&
+        request.method === "POST"
+    ) { 
+        return await login(request);
+    }
 
-        if (request.method === "POST") {
-            const newBook = await request.json();
-            
-            await connection.query(
-                "CALL AddBook(?, ?, ?)",
-                [newBook.title, newBook.author, newBook.status]
-            );
+    if (url.pathname === "/api/auth/me" &&
+        request.method === "GET"
+    ) {
+        return await me(request);
+    }
 
-            return new Response(
-                JSON.stringify({message: "Book added successfully"}),
-                {
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                }
-            );
-    } }
+    if (
+        url.pathname === "/api/auth/logout" &&
+        request.method === "POST"
+    ) {
+        return await logout(request);
+    }
 
-    if (url.pathname.startsWith("/api/books/")) {
-        const book_id = Number(url.pathname.split("/")[3]);
+    const bookResponse = await handleBookRoutes(request);
 
-        if (request.method === "DELETE") {
+    if (bookResponse !== null) {
+        return bookResponse;
+    }
 
-            await connection.query(
-                "CALL DeleteBook(?)",
-                [book_id]
-            );
-
-            return new Response(
-                JSON.stringify({message: "Book deleted successfully"}),
-                {headers:
-                    {"Content-Type": "application/json"}
-                }
-            );
-        }
-
-        if (request.method === "PUT") {
-            console.log("we reached main.js put method");
-            const updatedBook = await request.json();
-            console.log("we got the updated book in main.js put method");
-            await connection.query(
-                "CALL UpdateBook(?, ?, ?, ?)",
-                [book_id, updatedBook.newTitle, 
-                    updatedBook.newAuthor, updatedBook.newStatus]
-            );
-
-            return new Response(
-                JSON.stringify({message: "Book changed successfully"}),
-                {
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                }
-            );
-        }
-    } 
+    
     
     return serveDir(request, {
         fsRoot: "./public"
     }); 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-// try {
-//     const [rows] = await connection.query(
-//         "CALL GetAllBooks()"
-//     );
-//     console.log(rows[0]);
-
-// } catch (error) {
-//     console.log(`Database error: ${error}`);
-// } finally {
-//     await connection.end();
-// }
