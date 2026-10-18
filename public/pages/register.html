@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | Novel Shelf</title>
+    <link rel="stylesheet" href="/styles/auth.css">
+</head>
+<body>
+    <main class="auth-container">
+        <section class="auth-card">
+            <a href="index.html" class="logo">Novel Shelf</a>
+
+            <p class="eyebrow">YOUR NEXT CHAPTER</p>
+            <h1>Build your own shelf.</h1>
+            <p class="subtitle">
+                Create an account to keep track of your reading journey.
+            </p>
+
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="register-username">Username</label>
+                    <input
+                        type="text"
+                        id="register-username"
+                        name="username"
+                        placeholder="Create a username"
+                        minlength="3"
+                        maxlength="30"
+                        pattern="[a-zA-Z0-9_]{3,30}"
+                        autocomplete="username"
+                        aria-describedby="username-hint"
+                        required
+                    >
+                    <small id="username-hint">
+                        3–30 characters; letters, numbers, and underscores.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input
+                        type="password"
+                        id="register-password"
+                        name="password"
+                        placeholder="Create a strong password"
+                        minlength="12"
+                        maxlength="128"
+                        autocomplete="new-password"
+                        aria-describedby="password-hint"
+                        required
+                    >
+                    <small id="password-hint">
+                        At least 12 characters, including uppercase and
+                        lowercase letters, a number, and one allowed symbol:
+                        _ ! @ # .
+                    </small>
+                </div>
+
+                <p id="register-message" class="form-message" aria-live="polite"></p>
+
+                <button type="submit" class="auth-button">
+                    Create Account
+                </button>
+            </form>
+
+            <p class="auth-switch">
+                Already have an account?
+                <a href="login.html">Log in</a>
+            </p>
+
+            <a href="index.html" class="back-link">
+                ← Back to bookshelf
+            </a>
+        </section>
+    </main>
+    <script type="module" src="/javascript/auth.js"></script>
+</body>
+</html>

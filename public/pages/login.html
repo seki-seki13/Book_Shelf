@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In | Novel Shelf</title>
+    <link rel="stylesheet" href="/styles/auth.css">
+</head>
+<body>
+    <main class="auth-container">
+        <section class="auth-card">
+            <a href="index.html" class="logo">Novel Shelf</a>
+
+            <p class="eyebrow">WELCOME BACK</p>
+            <h1>Continue your story.</h1>
+            <p class="subtitle">
+                Log in to return to your personal bookshelf.
+            </p>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-username">Username</label>
+                    <input
+                        type="text"
+                        id="login-username"
+                        name="username"
+                        placeholder="Enter your username"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input
+                        type="password"
+                        id="login-password"
+                        name="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <p id="login-message" class="form-message" aria-live="polite"></p>
+
+                <button type="submit" class="auth-button">
+                    Log In
+                </button>
+            </form>
+
+            <p class="auth-switch">
+                New to Novel Shelf?
+                <a href="register.html">Create an account</a>
+            </p>
+
+            <a href="index.html" class="back-link">
+                ← Back to bookshelf
+            </a>
+        </section>
+    </main>
+    <script type="module" src="/javascript/auth.js"></script>
+</body>
+</html>

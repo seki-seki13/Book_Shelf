@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Novel Shelf</title>
+
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+
+<body>
+
+    
+    <header class="site-header">
+        <a href="index.html" class="site-logo">Novel Shelf</a>
+
+        <nav class="account-nav" aria-label="Account">
+            <span id="account-greeting" hidden></span>
+
+            <a href="login.html" id="login-link" class="nav-link">
+                Log In
+            </a>
+
+            <a href="register.html" id="register-link" class="nav-button">
+                Register
+            </a>
+
+            <button type="button" id="logout-button" hidden>
+                Log Out
+            </button>
+        </nav>
+    </header>
+
+
+    <main>
+
+        <section>
+            <h2>My Books</h2>
+
+            <!--
+                JavaScript will insert the books received from the backend here.
+
+                Initially, we show a loading message. app.js later replaces
+                this content with the actual books returned by:
+                
+                    GET /api/books
+            -->
+
+            <div id="books-container">
+                <p>Loading books...</p>
+            </div>
+        </section>
+
+        <section id="book-form-section">
+            <h2>Add a Book</h2>
+            <!--
+                The form collects information from the user.
+
+                app.js listens for the "submit" event and sends the form data
+                to the Deno backend using:
+
+                    POST /api/books
+
+                The frontend does NOT communicate directly with MySQL.
+                The request goes:
+
+                    Browser → Deno → MySQL
+            -->
+            <form id="book-form">
+
+                <label for="title">Title</label>
+                <input
+                    type="text"
+                    id="title"
+                    placeholder="Enter the Title..."
+                    name="title"
+                    required
+                >
+
+                <label for="author">Author</label>
+                <input
+                    type="text"
+                    id="author"
+                    placeholder="Enter the Author..."
+                    name="author"
+                    required
+                >
+
+                <label for="status">Status</label>
+                <select id="status" name="status">
+                    <option value="Want to Read">Want to Read</option>
+                    <option value="Reading">Reading</option>
+                    <option value="Finished">Finished</option>
+                </select>
+
+                <label for="cover-image">Book cover</label>
+                <input
+                    type="file"
+                    id="cover-image"
+                    name="cover-image"
+                    accept="image/*">
+
+                <div id="cover-preview-container" hidden>
+                    <p>Cover preview:</p>
+                    <img
+                        id="cover-preview"
+                        alt="Preview of the selected book cover">
+                </div>
+
+                
+                <button type="submit">Add Book</button>
+                <!--
+                    type="submit" causes the form's "submit" event to fire.
+
+                    app.js handles that event and uses fetch() to send
+                    the data to the Deno API.
+                -->
+
+            </form>
+        </section>
+
+    </main>
+
+    <script type="module" src="/javascript/app.js"></script>
+    <script type="module" src="/javascript/auth.js"></script>
+
+</body>
+</html>
